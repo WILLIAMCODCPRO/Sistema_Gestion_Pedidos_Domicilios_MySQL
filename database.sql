@@ -118,10 +118,12 @@ CREATE TABLE pedido (
     id_pago INT NOT NULL,
     id_domicilio INT NOT NULL,
     id_repartidor INT NOT NULL,
+    id_usuario INT NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES cliente(id),
     FOREIGN KEY (id_pago) REFERENCES pago(id),
     FOREIGN KEY (id_domicilio) REFERENCES domicilio(id),
-    FOREIGN KEY (id_repartidor) REFERENCES repartidor(id)
+    FOREIGN KEY (id_repartidor) REFERENCES repartidor(id),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
 
 -- Crear tabla detalle_pedido
