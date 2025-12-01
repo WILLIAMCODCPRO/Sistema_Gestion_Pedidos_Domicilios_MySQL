@@ -11,6 +11,16 @@ CREATE TABLE persona (
     correo_electronico VARCHAR(50) NOT NULL
 );
 
+-- Crear tabla usuario
+
+CREATE TABLE usuario{
+    id INT
+    usuario VARCHAR(50) NOT NULL,
+    clave VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES persona(id)
+}
+
 -- Crear tabla cliente
 
 CREATE TABLE cliente (
