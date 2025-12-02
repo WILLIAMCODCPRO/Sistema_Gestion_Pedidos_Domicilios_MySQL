@@ -44,3 +44,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla cliente
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_cliente(IN p_id_persona INT)
+
+BEGIN
+    INSERT INTO cliente(id) VALUES (p_id_persona);
+END //
+
+DELIMITER ;
