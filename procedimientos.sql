@@ -32,3 +32,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla usuario
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_usuario(IN p_id_persona INT,IN p_usuario VARCHAR(50), IN p_clave VARCHAR(50))
+
+BEGIN
+    INSERT INTO usuario(id, usuario, clave) VALUES (p_id_persona,p_usuario, p_clave);
+END //
+
+DELIMITER ;
