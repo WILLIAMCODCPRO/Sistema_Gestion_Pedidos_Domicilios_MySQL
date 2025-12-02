@@ -18,3 +18,17 @@ END //
 DELIMITER ;
 
 CALL cambiar_estado_pedido_entregado(21);
+
+-- Procedimiento  para incerciones
+
+-- Insertar en tabla persona
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_persona(IN p_nombre VARCHAR(50), p_telefono VARCHAR(50), p_correo_electronico VARCHAR(50) )
+
+BEGIN
+    INSERT INTO persona(nombre,telefono,correo_electronico) VALUES (p_nombre, p_telefono, p_correo_electronico);
+END //
+
+DELIMITER ;
