@@ -56,3 +56,16 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+-- Insertar en tabla pizza
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_pizza(IN p_nombre VARCHAR(50), IN p_tam VARCHAR(50), IN p_precio_actual DOUBLE, IN p_tipo VARCHAR(50))
+
+BEGIN
+    INSERT INTO pizza(nombre, tam, precio_actual, tipo) VALUES (p_nombre, p_tam, p_precio_actual, p_tipo);
+END //
+
+DELIMITER ;

@@ -35,7 +35,7 @@ CREATE TABLE cliente (
 CREATE TABLE pizza (
     id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
-    tam VARCHAR(50) NOT NULL,
+    tam tipo ENUM('Grande','Mediana','pequeña') NOT NULL,
     precio_actual DOUBLE NOT NULL,
     tipo ENUM('vegetariana','especial','clasica') NOT NULL,
     PRIMARY KEY (id)
