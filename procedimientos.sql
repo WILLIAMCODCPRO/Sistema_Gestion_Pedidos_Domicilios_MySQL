@@ -93,3 +93,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla ingrediente_pizza
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_ingrediente_pizza(IN p_cantidad_ingrediente DOUBLE, IN p_id_pizza INT, IN p_id_ingrediente INT)
+
+BEGIN
+    INSERT INTO ingrediente_pizza(cantidad_ingrediente, id_pizza, id_ingrediente) VALUES (p_cantidad_ingrediente, p_id_pizza, p_id_ingrediente);
+END //
+
+DELIMITER ;
