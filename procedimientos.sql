@@ -117,3 +117,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla zona
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_zona(IN p_nombre VARCHAR(50), IN p_costo_metro DOUBLE, IN p_costo_base DOUBLE)
+
+BEGIN
+    INSERT INTO zona(nombre, costo_metro, costo_base) VALUES (p_nombre, p_costo_metro, p_costo_base);
+END //
+
+DELIMITER ;
