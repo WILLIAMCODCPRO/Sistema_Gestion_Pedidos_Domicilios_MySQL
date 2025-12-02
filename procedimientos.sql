@@ -1,11 +1,5 @@
 -- Procedimiento para cambiar automáticamente el estado del pedido a “entregado” cuando se registre la hora de entrega.
 
-INSERT INTO domicilio (distancia, hora_salida_repartidor, hora_entrega, direccion, costo_envio, id_zona) VALUES
-(600,'2025-01-10 18:45',NULL,'Calle 10 #19-29',2200,2);
-
-INSERT INTO pedido (fecha, estado, total_pedido, id_cliente, id_pago, id_domicilio, id_repartidor, id_usuario) VALUES
-('2025-01-10 18:10','pendiente',30000,1,1,21,16,11);
-
 DELIMITER //
 
 CREATE PROCEDURE cambiar_estado_pedido_entregado(IN p_id_domicilio int)
@@ -17,7 +11,17 @@ END //
 
 DELIMITER ;
 
-CALL cambiar_estado_pedido_entregado(21);
+-- Procedimiento para clinetes frecuentes
+
+DELIMITER //
+
+CREATE PROCEDURE clientes_frecuentes(IN p_mes INT, IN p_anho INT, IN p_min_pedidos INT)
+
+BEGIN
+    SELECT p.nombre, COUNT(pe.id) AS total_pedidos FROM pedido pe INNER JOIN persona p ON p.id = pe.id_cliente WHERE MONTH(pe.fecha) = p_mes AND YEAR(pe.fecha) = p_anho GROUP BY p.id HAVING COUNT(pe.id) >= p_min_pedidos ORDER BY total_pedidos DESC;
+END //
+
+DELIMITER ;
 
 -- Procedimiento  para incerciones
 
