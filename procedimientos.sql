@@ -105,3 +105,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla pago
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_pago(IN p_metodo_pago VARCHAR(50), p_estado VARCHAR(50))
+
+BEGIN
+    INSERT INTO pago(metodo_pago, estado) VALUES (p_metodo_pago, p_estado);
+END //
+
+DELIMITER ;
