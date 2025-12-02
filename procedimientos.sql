@@ -69,3 +69,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla unidad_medida
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_unidad_medida(p_nombre VARCHAR(50))
+
+BEGIN
+    INSERT INTO unidad_medida(nombre) VALUES (p_nombre);
+END //
+
+DELIMITER ;
