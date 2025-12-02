@@ -74,10 +74,22 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE insertar_unidad_medida(p_nombre VARCHAR(50))
+CREATE PROCEDURE insertar_unidad_medida( IN p_nombre VARCHAR(50))
 
 BEGIN
     INSERT INTO unidad_medida(nombre) VALUES (p_nombre);
+END //
+
+DELIMITER ;
+
+-- Insertar en tabla ingrediente
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_ingrediente(IN p_nombre VARCHAR(50), IN p_precio DOUBLE, IN p_stock INT ,IN p_id_unidad_medida INT)
+
+BEGIN
+    INSERT INTO ingrediente(nombre, precio, stock, id_unidad_medida) VALUES (p_nombre, p_precio, p_stock, p_id_unidad_medida);
 END //
 
 DELIMITER ;
