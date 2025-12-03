@@ -169,3 +169,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla detalle_pedido
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_detalle_pedido(IN p_precio_unitario DOUBLE, IN p_cantidad INT, IN p_subtotal DOUBLE, IN p_id_pedido INT, IN p_id_pizza INT)
+
+BEGIN
+    INSERT INTO detalle_pedido (precio_unitario, cantidad, subtotal, id_pedido, id_pizza) VALUES (p_precio_unitario, p_cantidad, p_subtotal, p_id_pedido, p_id_pizza);
+END //
+
+DELIMITER ;
