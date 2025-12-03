@@ -387,4 +387,4 @@ CREATE TABLE historial_precio (
 ```
 3. Insertar datos
 
-Accede al archivo **incerciones.sql**  que se encuentra en el repositorio donde se encunetran los datos listos para intorducrilos a la base de datos
+Accede al archivo de script **incerciones.sql** ubicado dentro del repositorio. Este archivo contiene el conjunto de sentencias SQL INSERT preconfiguradas que encapsulan algunos  datos  listos para ser introducidos  directamente en las tablas correspondientes de la base de datos.
