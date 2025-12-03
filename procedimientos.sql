@@ -181,3 +181,16 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla historial_precio
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_historial_precio(IN p_precio_antiguo DOUBLE, IN p_precio_nuevo DOUBLE, IN p_id_pizza INT )
+
+
+BEGIN
+    INSERT INTO historial_precio(precio_antiguo, precio_nuevo, id_pizza) VALUES (p_precio_antiguo, p_precio_nuevo, p_id_pizza);
+END //
+
+DELIMITER ;
