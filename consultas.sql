@@ -22,3 +22,7 @@ SELECT p.nombre AS clinete,  SUM(pe.total_pedido) AS total_gastado FROM  persona
 
 SELECT p.nombre FROM pizza p WHERE p.nombre LIKE 'M%';
 
+-- Subconsulta para obtener los clientes frecuentes (más de 5 pedidos mensuales).
+
+SELECT p.nombre, COUNT(pe.id) AS total_pedidos FROM pedido pe INNER JOIN persona p ON p.id = pe.id_cliente WHERE MONTH(pe.fecha) = 01 AND YEAR(pe.fecha) = 2025 GROUP BY p.id HAVING COUNT(pe.id) >= 5 ORDER BY total_pedidos DESC;
+
