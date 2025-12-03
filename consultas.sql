@@ -9,3 +9,7 @@ SELECT p.nombre, SUM(dp.cantidad) AS cantidad_vendida FROM detalle_pedido dp INN
 -- Pedidos por repartidor (JOIN).
 
 SELECT p.nombre AS repartidor, COUNT(pe.id) AS cantidad_pedidos_repartidos FROM pedido pe INNER JOIN persona p ON p.id = pe.id_repartidor GROUP BY p.nombre ORDER BY cantidad_pedidos_repartidos DESC;
+
+-- Promedio de entrega por zona (AVG y JOIN)
+
+SELECT z.nombre AS zona, COUNT(z.id)  AS promedio_repartido_por_zona FROM zona z INNER JOIN domicilio d ON d.id_zona = z.id GROUP BY z.nombre ORDER BY promedio_repartido_por_zona  DESC;
