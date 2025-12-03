@@ -145,3 +145,16 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla domicilio
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_domicilio(IN p_distancia DOUBLE, IN p_hora_salida_repartidor DATETIME, IN p_hora_entrega DATETIME, IN p_direccion VARCHAR(50), IN p_costo_envio DOUBLE, IN p_id_zona INT)
+
+BEGIN
+    INSERT INTO domicilio(distancia,hora_salida_repartidor,hora_entrega,direccion, costo_envio, id_zona) VALUES (p_distancia, p_hora_salida_repartidor, p_hora_entrega, p_direccion, p_costo_envio, p_id_zona);
+END //
+
+DELIMITER ;
+
