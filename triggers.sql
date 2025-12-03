@@ -21,10 +21,24 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE TRIGGER auditoría
+CREATE TRIGGER auditoria
 BEFORE UPDATE ON pizza FOR EACH ROW
 BEGIN
     IF OLD.precio_actual <> NEW.precio_actual THEN INSERT INTO historial_precio (precio_antiguo, precio_nuevo,id_pizza ) VALUES (OLD.precio_actual, NEW.precio_actual, OLD.id); 
+    END IF;
+END //
+
+DELIMITER ;
+
+-- Trigger para marcar repartidor como “disponible” nuevamente cuando termina un domicilio.
+
+
+DELIMITER //
+
+CREATE TRIGGER repartidor_disponible
+AFTER UPDATE ON pedido FOR EACH ROW
+BEGIN
+    IF NEW.estado = 'entregado' THEN UPDATE repartidor SET estado = 'disponible' WHERE id = NEW.id_repartidor;
     END IF;
 END //
 
