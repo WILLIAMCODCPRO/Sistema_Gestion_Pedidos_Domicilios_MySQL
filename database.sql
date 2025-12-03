@@ -35,7 +35,7 @@ CREATE TABLE cliente (
 CREATE TABLE pizza (
     id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
-    tam tipo ENUM('Grande','Mediana','pequeña') NOT NULL,
+    tam ENUM('Grande','Mediana','pequeña') NOT NULL,
     precio_actual DOUBLE NOT NULL,
     tipo ENUM('vegetariana','especial','clasica') NOT NULL,
     PRIMARY KEY (id)
@@ -52,10 +52,11 @@ CREATE TABLE unidad_medida (
 -- Crear tabla ingrediente
 
 CREATE TABLE ingrediente (
-    id INT NOT NULL AUTO_INCREMENT ,
-    nombre VARCHAR(50) NOT NULL, 
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
     precio DOUBLE NOT NULL,
     stock INT NOT NULL,
+    stock_minimo INT NOT NULL,
     id_unidad_medida INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_unidad_medida) REFERENCES unidad_medida(id)
@@ -166,244 +167,248 @@ CREATE TABLE historial_precio (
 
 -- Incercion datos de prueba
 
--- Tabla persona
+-- tabla unidad_medida
+INSERT INTO unidad_medida (nombre) VALUES
+('gramos'),
+('mililitros'),
+('unidades');
 
-INSERT INTO persona (id, nombre, telefono, correo_electronico) VALUES
+-- tabla zona
+INSERT INTO zona (nombre, costo_metro, costo_base) VALUES
+('Centro', 0.50, 2000),
+('Norte', 0.65, 2500),
+('Sur', 0.40, 1800),
+('Oriente', 0.55, 2200);
 
-(1,'María Gómez','3001111111','maria.gomez@gmail.com'),
-(2,'Carlos Ruiz','3001111112','carlos.ruiz@gmail.com'),
-(3,'Ana Torres','3001111113','ana.torres@gmail.com'),
-(4,'Pedro López','3001111114','pedro.lopez@gmail.com'),
-(5,'Luisa Fernández','3001111115','luisa.fernandez@gmail.com'),
-(6,'Jorge Salas','3001111116','jorge.salas@gmail.com'),
-(7,'Diana Mendoza','3001111117','diana.mendoza@gmail.com'),
-(8,'Felipe Castro','3001111118','felipe.castro@gmail.com'),
-(9,'Valeria Ortiz','3001111119','valeria.ortiz@gmail.com'),
-(10,'Santiago Reyes','3001111120','santiago.reyes@gmail.com'),
-(11,'Camilo Moreno','3012222221','camilo.moreno@pizzeria.com'),
-(12,'Andrea Rojas','3012222222','andrea.rojas@pizzeria.com'),
-(13,'Héctor Salgado','3012222223','hector.salgado@pizzeria.com'),
-(14,'Lucía Paredes','3012222224','lucia.paredes@pizzeria.com'),
-(15,'Óscar Martínez','3012222225','oscar.martinez@pizzeria.com'),
-(16,'Daniel Vega','3023333331','daniel.vega@pizzeria.com'),
-(17,'Juliana Pérez','3023333332','juliana.perez@pizzeria.com'),
-(18,'Mateo Rincón','3023333333','mateo.rincon@pizzeria.com'),
-(19,'Laura Ibarra','3023333334','laura.ibarra@pizzeria.com'),
-(20,'Samuel Pardo','3023333335','samuel.pardo@pizzeria.com');
-
--- tabla cliente
-
-INSERT INTO cliente (id) VALUES
-(1),(2),(3),(4),(5),(6),(7),(8),(9),(10);
-
--- Tabal usuario
-
-INSERT INTO usuario (id, usuario, clave) VALUES
-(11,'cmoreno','1234'),
-(12,'arojas','1234'),
-(13,'hsalgado','1234'),
-(14,'lparedes','1234'),
-(15,'omartinez','1234');
-
--- Tabla zona
-
-INSERT INTO zona (id, nombre, costo_metro, costo_base) VALUES
-(1,'Centro',0.012,1500),
-(2,'Norte',0.015,2000),
-(3,'Sur',0.014,1800),
-(4,'Oriente',0.016,2200),
-(5,'Occidente',0.013,1700);
-
-
--- Tabla repartidor
-
-INSERT INTO repartidor (id, estado, id_zona) VALUES
-(16,'disponible',1),
-(17,'disponible',2),
-(18,'no disponible',3),
-(19,'disponible',4),
-(20,'no disponible',5);
-
--- Tabla unidad_medida
-
-INSERT INTO unidad_medida (id, nombre) VALUES
-(1,'gramos'),
-(2,'litros'),
-(3,'unidades'),
-(4,'mililitros'),
-(5,'kilogramos'),
-(6,'piezas'),
-(7,'onzas'),
-(8,'tazas'),
-(9,'cucharadas'),
-(10,'cucharaditas'),
-(11,'bolsas'),
-(12,'cajas'),
-(13,'porciones'),
-(14,'botes'),
-(15,'paquetes'),
-(16,'rodajas'),
-(17,'rebanadas'),
-(18,'ml'),
-(19,'latas'),
-(20,'barras');
-
--- Tabla ingrediente
-
-INSERT INTO ingrediente (nombre, precio, stock, id_unidad_medida) VALUES
-('Queso mozzarella',12.5,300,1),
-('Jamón',9.2,200,1),
-('Pepperoni',11.0,250,1),
-('Piña',4.3,150,1),
-('Tocino',13.0,180,1),
-('Salsa de tomate',3.2,500,4),
-('Champiñones',5.8,120,1),
-('Cebolla',2.5,400,1),
-('Pimiento',3.1,350,1),
-('Pollo',10.5,220,1),
-('Carne molida',11.5,210,1),
-('Aceitunas',6.4,180,1),
-('Maíz',2.7,160,1),
-('Queso parmesano',14.0,100,1),
-('Orégano',1.5,80,1),
-('Ajo',1.2,90,1),
-('Salami',10.8,140,1),
-('Tomate fresco',3.5,180,1),
-('Albahaca',2.4,50,1),
-('Extra queso',12.0,300,1);
-
--- Tabla pizza
-
-INSERT INTO pizza (nombre, tam, precio_actual, tipo) VALUES
-('Margarita','Mediana',18000,'clasica'),
-('Pepperoni','Grande',28000,'clasica'),
-('Hawaiana','Mediana',23000,'especial'),
-('Mixta','Grande',30000,'especial'),
-('Vegetariana','Grande',26000,'vegetariana'),
-('Carnes','Grande',32000,'especial'),
-('Pollo BBQ','Mediana',24000,'especial'),
-('Mexicana','Grande',31000,'especial'),
-('Napolitana','Mediana',20000,'clasica'),
-('Triple Queso','Grande',27000,'clasica'),
-('Criolla','Mediana',23000,'especial'),
-('Suprema','Grande',33000,'especial'),
-('Italiana','Mediana',25000,'especial'),
-('Campesina','Grande',27000,'clasica'),
-('Picante','Mediana',24000,'especial'),
-('Del Chef','Grande',34000,'especial'),
-('Primavera','Mediana',22000,'vegetariana'),
-('Mediterránea','Grande',29000,'vegetariana'),
-('Doble Carne','Grande',35000,'especial'),
-('Clásica','Mediana',19000,'clasica');
-
--- Tabla ingrediente  pizza
-
-INSERT INTO ingrediente_pizza (cantidad_ingrediente, id_pizza, id_ingrediente) VALUES
-(80,1,1),(20,1,6),(10,1,15),
-(90,2,1),(40,2,3),(10,2,15),
-(80,3,1),(30,3,3),(30,3,4),
-(100,4,1),(40,4,3),(40,4,7),
-(70,5,1),(40,5,8),(20,5,9),
-(90,6,1),(40,6,10),(40,6,11),
-(80,7,1),(40,7,10),(20,7,5);
-
-
--- Tabla pago
-
+-- tabla pago
 INSERT INTO pago (metodo_pago, estado) VALUES
-('efectivo','pagado'),
-('tarjeta','pagado'),
-('app','no pagado'),
-('efectivo','pagado'),
-('tarjeta','no pagado'),
-('app','pagado'),
-('efectivo','pagado'),
-('tarjeta','pagado'),
-('app','no pagado'),
-('efectivo','pagado'),
-('efectivo','pagado'),
-('tarjeta','pagado'),
-('app','pagado'),
-('tarjeta','no pagado'),
-('efectivo','pagado'),
-('app','pagado'),
-('efectivo','no pagado'),
-('tarjeta','pagado'),
-('app','pagado'),
-('efectivo','pagado');
+('tarjeta', 'pagado'),
+('efectivo', 'pagado'),
+('app', 'pagado'),
+('tarjeta', 'pagado'); 
 
--- Tabla domicilio
+-- tabla pizza
+INSERT INTO pizza (nombre, tam, precio_actual, tipo) VALUES
+('Margarita Clásica', 'Grande', 25000.00, 'clasica'),
+('Vegetariana Suprema', 'Mediana', 28000.00, 'vegetariana'),
+('Pepperoni Explosiva', 'Grande', 32000.00, 'especial'),
+('Hawaiana Estándar', 'Mediana', 24000.00, 'clasica');
 
+-- tabla ingrediente
+INSERT INTO ingrediente (nombre, precio, stock, stock_minimo, id_unidad_medida) VALUES
+('Harina', 2000.00, 15000, 5000, 1),
+('Queso Mozzarella', 5000.00, 3000, 1000, 1),
+('Salsa de Tomate', 1500.00, 80, 20, 2),
+('Pepperoni', 8000.00, 500, 100, 3),
+('Piña', 4000.00, 100, 50, 3),
+('Champiñones', 6000.00, 8, 10, 3);
+
+-- tabla persona 
+INSERT INTO persona (nombre, telefono, correo_electronico) VALUES
+('Ana García', '3001112233', 'ana.garcia@mail.com'),         -
+('Juan Pérez', '3004445566', 'juan.perez@mail.com'),         
+('María López', '3007778899', 'maria.lopez@mail.com'),       
+('Carlos Díaz', '3001234567', 'carlos.diaz@mail.com'),       
+('Felipe Rojas', '3009876543', 'felipe.rojas@mail.com'),     
+('Laura Montes', '3110000006', 'laura.montes@mail.com'),
+('Ricardo Sosa', '3110000007', 'ricardo.sosa@mail.com'),
+('Sofía Torres', '3110000008', 'sofia.torres@mail.com'),
+('Andrés Milla', '3110000009', 'andres.milla@mail.com'),
+('Paola Castro', '3110000010', 'paola.castro@mail.com'),
+('Jorge Vidal', '3110000011', 'jorge.vidal@mail.com'),
+('Camila Ríos', '3110000012', 'camila.rios@mail.com'),
+('David Soto', '3110000013', 'david.soto@mail.com'),
+('Elena Pinto', '3110000014', 'elena.pinto@mail.com'),
+('Sebastián Mora', '3110000015', 'sebastian.mora@mail.com'),
+('Valentina Ruiz', '3110000016', 'valentina.ruiz@mail.com'),
+('Fernando Gil', '3110000017', 'fernando.gil@mail.com'),
+('Natalia Silva', '3110000018', 'natalia.silva@mail.com'),
+('Javier Cruz', '3110000019', 'javier.cruz@mail.com'),
+('Marta Vega', '3110000020', 'marta.vega@mail.com'),
+('Daniel Reyes', '3110000021', 'daniel.reyes@mail.com'),
+('Lorena Ortiz', '3110000022', 'lorena.ortiz@mail.com'),
+('Pedro Núñez', '3110000023', 'pedro.nunez@mail.com'),
+('Miguel Ángel', '3110000024', 'miguel.angel@mail.com'),
+('Sara Bernal', '3110000025', 'sara.bernal@mail.com'),
+('Roberto Paz', '3110000026', 'roberto.paz@mail.com'),
+('Luisa Flores', '3110000027', 'luisa.flores@mail.com'),
+('Héctor Velez', '3110000028', 'hector.velez@mail.com'),
+('Inés Osorio', '3110000029', 'ines.osorio@mail.com'),
+('Nicolás Rico', '3110000030', 'nicolas.rico@mail.com');
+
+-- tabla cliente 
+INSERT INTO cliente (id) VALUES
+(1), (4), (6), (7), (8), (9), (10), (11), (12), (13), (14), (15), (16), (17), (18), (19), (20), (21), (22), (23);
+
+-- tabla usuario 
+INSERT INTO usuario (id, usuario, clave) VALUES
+(3, 'mlopez', '12345'),
+(2, 'jperez', 'repartidor1'),
+(24, 'mangel', 'user24'),
+(29, 'iosorio', 'user29'),
+(30, 'nrico', 'user30');
+
+--  tabla repartidor 
+INSERT INTO repartidor (id, estado, id_zona) VALUES
+(2, 'disponible', 1),
+(5, 'no disponible', 3),
+(25, 'disponible', 4),
+(26, 'disponible', 2),
+(27, 'no disponible', 1),
+(28, 'disponible', 3);
+
+-- tabla domicilio 
 INSERT INTO domicilio (distancia, hora_salida_repartidor, hora_entrega, direccion, costo_envio, id_zona) VALUES
-(500,'2025-01-10 18:00','2025-01-10 18:10','Calle 1 #10-20',2000,1),
-(800,'2025-01-10 18:05','2025-01-10 18:20','Calle 2 #11-21',2600,2),
-(1200,'2025-01-10 18:10','2025-01-10 18:30','Calle 3 #12-22',3000,3),
-(400,'2025-01-10 18:15','2025-01-10 18:25','Calle 4 #13-23',1800,1),
-(700,'2025-01-10 18:20','2025-01-10 18:35','Calle 5 #14-24',2500,2),
-(900,'2025-01-10 18:25','2025-01-10 18:40','Calle 6 #15-25',2800,3),
-(1300,'2025-01-10 18:30','2025-01-10 18:55','Calle 7 #16-26',3300,4),
-(300,'2025-01-10 18:35','2025-01-10 18:45','Calle 8 #17-27',1700,5),
-(500,'2025-01-10 18:40','2025-01-10 18:50','Calle 9 #18-28',2000,1),
-(600,'2025-01-10 18:45','2025-01-10 18:57','Calle 10 #19-29',2200,2),
+(3.5, '2025-11-20 18:00:00', '2025-11-20 18:20:00', 'Calle 50 # 10-15', 3750.00, 1),
+(12.0, '2025-11-20 19:10:00', '2025-11-20 19:45:00', 'Carrera 30 # 100-2', 9800.00, 2),
+(5.0, '2025-11-21 12:05:00', '2025-11-21 12:25:00', 'Avenida Principal # 1-1', 4500.00, 1), 
+(6.2, '2025-11-21 13:00:00', '2025-11-21 13:30:00', 'Carrera 8 # 5-1', 5000.00, 4), 
+(1.8, '2025-11-21 15:05:00', '2025-11-21 15:15:00', 'Calle 100 # 30-5', 3000.00, 1), 
+(8.0, '2025-11-21 17:30:00', '2025-11-21 18:00:00', 'Avenida Los Cerezos', 6000.00, 2), 
+(4.5, '2025-11-21 20:05:00', '2025-11-21 20:25:00', 'Diagonal 45 Sur', 4000.00, 3), 
+(10.5, '2025-11-22 10:00:00', '2025-11-22 10:40:00', 'Boulevard Principal', 7000.00, 2), 
+(2.1, '2025-11-22 11:30:00', '2025-11-22 11:45:00', 'Calle del Sol # 2-2', 3500.00, 1), 
+(7.5, '2025-11-22 14:00:00', '2025-11-22 14:35:00', 'Vía al Mar', 5500.00, 4),
+(15.0, '2025-11-22 16:35:00', '2025-11-22 17:20:00', 'Finca El Tesoro', 12000.00, 3), 
+(3.0, '2025-11-23 18:00:00', '2025-11-23 18:15:00', 'Edificio Central', 3600.00, 1), 
+(5.5, '2025-11-23 19:30:00', '2025-11-23 20:00:00', 'Sector Industrial', 4800.00, 2), 
+(9.1, '2025-11-24 11:00:00', '2025-11-24 11:30:00', 'Conjunto Residencial A', 6500.00, 3), 
+(0.9, '2025-11-24 12:45:00', '2025-11-24 13:00:00', 'Plaza Mayor', 2800.00, 1), 
+(4.0, '2025-11-24 14:30:00', '2025-11-24 15:00:00', 'Parque de la 93', 4000.00, 4), 
+(11.2, '2025-11-24 16:05:00', '2025-11-24 16:50:00', 'Reserva Natural', 10000.00, 2), 
+(1.5, '2025-11-25 20:00:00', '2025-11-25 20:10:00', 'Barrio Los Pinos', 3000.00, 1), 
+(6.0, '2025-11-25 21:30:00', '2025-11-25 22:00:00', 'Zona Franca', 5200.00, 3), 
+(8.8, '2025-11-26 14:00:00', '2025-11-26 14:40:00', 'Centro Comercial', 6800.00, 4), 
+(2.5, '2025-11-26 16:30:00', '2025-11-26 16:45:00', 'Calle 70 # 5-5', 3800.00, 1),
+(10.0, '2025-11-27 18:00:00', '2025-11-27 18:45:00', 'Villa Olímpica', 8500.00, 2), 
+(4.2, '2025-11-27 20:05:00', '2025-11-27 20:30:00', 'Conjunto Residencial B', 4200.00, 3), 
+(7.0, '2025-11-28 19:30:00', '2025-11-28 20:00:00', 'Barrio El Lago', 5800.00, 4), 
+(1.0, '2025-11-28 21:00:00', '2025-11-28 21:10:00', 'Torres Gemelas', 2900.00, 1), 
+(9.5, '2025-11-29 10:00:00', '2025-11-29 10:35:00', 'Zona de Playas', 7500.00, 2),
+(3.2, '2025-11-29 12:30:00', '2025-11-29 12:45:00', 'Calle 10 # 10-10', 3900.00, 3),
+(6.5, '2025-11-29 14:30:00', '2025-11-29 15:00:00', 'Vereda Las Palmas', 5500.00, 4), 
+(2.8, '2025-11-29 16:35:00', '2025-11-29 16:50:00', 'Cerca al Hospital', 3500.00, 1), 
+(13.0, '2025-11-30 18:00:00', '2025-11-30 18:50:00', 'Afueras de la Ciudad', 10500.00, 2), 
+(5.0, '2025-12-01 19:00:00', '2025-12-01 19:25:00', 'Conjunto Sol Naciente', 4500.00, 3), 
+(7.8, '2025-12-01 21:00:00', '2025-12-01 21:40:00', 'Parque Industrial', 6000.00, 4),
+(0.5, '2025-12-02 12:00:00', '2025-12-02 12:05:00', 'Edificio Torres Blancas', 2500.00, 1), 
+(11.5, '2025-12-02 13:05:00', '2025-12-02 13:45:00', 'Finca La Esperanza', 9000.00, 2), 
+(3.8, '2025-12-02 14:30:00', '2025-12-02 14:50:00', 'Barrio Jardín', 4100.00, 3),
+(5.2, '2025-12-02 16:00:00', '2025-12-02 16:25:00', 'Avenida Libertadores', 4600.00, 4),
+(1.1, '2025-12-02 18:30:00', '2025-12-02 18:40:00', 'Calle Principal', 2800.00, 1), 
+(8.5, '2025-12-02 20:05:00', '2025-12-02 20:45:00', 'Cabañas del Bosque', 7000.00, 2), 
+(4.8, '2025-12-03 10:00:00', '2025-12-03 10:25:00', 'Urbanización Nueva', 4400.00, 3), 
+(6.0, '2025-12-03 12:30:00', '2025-12-03 13:00:00', 'Sector El Carmen', 5200.00, 4); 
 
-(900,'2025-01-11 12:10','2025-01-11 12:25','Calle 11 #10-20',2800,3),
-(1100,'2025-01-11 12:15','2025-01-11 12:35','Calle 12 #11-21',3100,4),
-(400,'2025-01-11 12:20','2025-01-11 12:30','Calle 13 #12-22',1800,1),
-(500,'2025-01-11 12:25','2025-01-11 12:40','Calle 14 #13-23',2000,2),
-(750,'2025-01-11 12:30','2025-01-11 12:45','Calle 15 #14-24',2600,3),
-(650,'2025-01-11 12:35','2025-01-11 12:48','Calle 16 #15-25',2400,4),
-(950,'2025-01-11 12:40','2025-01-11 13:00','Calle 17 #16-26',2900,5),
-(1200,'2025-01-11 12:45','2025-01-11 13:05','Calle 18 #17-27',3300,4),
-(300,'2025-01-11 12:50','2025-01-11 13:00','Calle 19 #18-28',1700,2),
-(450,'2025-01-11 12:55','2025-01-11 13:05','Calle 20 #19-29',1900,1);
+-- tabla pedido
+INSERT INTO pedido (fecha, estado, total_pedido, id_cliente, id_pago, id_domicilio, id_repartidor, id_usuario) VALUES
+('2025-11-20 17:45:00', 'entregado', 28750.00, 1, 1, 1, 2, 3),
+('2025-11-20 19:00:00', 'entregado', 41800.00, 4, 2, 2, 5, 3),
+('2025-11-21 12:00:00', 'entregado', 30500.00, 1, 3, 3, 2, 3), 
+('2025-11-21 12:40:00', 'entregado', 34500.00, 6, 4, 4, 25, 3),
+('2025-11-21 14:50:00', 'entregado', 27000.00, 7, 1, 5, 2, 24),
+('2025-11-21 17:00:00', 'entregado', 40000.00, 8, 2, 6, 26, 2),
+('2025-11-21 20:00:00', 'entregado', 29000.00, 9, 3, 7, 28, 29), 
+('2025-11-22 09:45:00', 'entregado', 52000.00, 10, 1, 8, 26, 30),
+('2025-11-22 11:15:00', 'entregado', 26000.00, 11, 2, 9, 2, 3),
+('2025-11-22 13:40:00', 'entregado', 38000.00, 12, 4, 10, 25, 24),
+('2025-11-22 16:30:00', 'entregado', 60000.00, 13, 1, 11, 5, 29), 
+('2025-11-23 17:30:00', 'entregado', 33600.00, 14, 2, 12, 2, 30),
+('2025-11-23 19:15:00', 'entregado', 45800.00, 15, 3, 13, 26, 3),
+('2025-11-24 10:45:00', 'entregado', 55000.00, 16, 1, 14, 28, 24),
+('2025-11-24 12:30:00', 'entregado', 26800.00, 17, 2, 15, 2, 29),
+('2025-11-24 14:15:00', 'entregado', 34000.00, 18, 4, 16, 25, 30),
+('2025-11-24 16:00:00', 'entregado', 41000.00, 19, 1, 17, 26, 3), 
+('2025-11-25 19:40:00', 'entregado', 28000.00, 20, 2, 18, 2, 24),
+('2025-11-25 21:10:00', 'entregado', 43000.00, 21, 3, 19, 28, 2),
+('2025-11-26 13:45:00', 'entregado', 38800.00, 22, 1, 20, 25, 29),
+('2025-11-26 16:15:00', 'entregado', 27800.00, 23, 2, 21, 2, 30),
+('2025-11-27 17:40:00', 'entregado', 42000.00, 1, 4, 22, 26, 3),
+('2025-11-27 20:00:00', 'entregado', 36000.00, 4, 1, 23, 28, 24), 
+('2025-11-28 19:10:00', 'entregado', 31800.00, 6, 2, 24, 25, 2),
+('2025-11-28 20:45:00', 'entregado', 26900.00, 7, 3, 25, 2, 29),
+('2025-11-29 09:45:00', 'entregado', 45500.00, 8, 1, 26, 26, 30),
+('2025-11-29 12:15:00', 'entregado', 32900.00, 9, 2, 27, 28, 3),
+('2025-11-29 14:15:00', 'entregado', 37500.00, 10, 4, 28, 25, 24),
+('2025-11-29 16:30:00', 'entregado', 29500.00, 11, 1, 29, 2, 2), 
+('2025-11-30 17:45:00', 'entregado', 55500.00, 12, 2, 30, 26, 29),
+('2025-12-01 18:40:00', 'entregado', 38500.00, 13, 3, 31, 28, 30),
+('2025-12-01 20:45:00', 'entregado', 44000.00, 14, 1, 32, 25, 3),
+('2025-12-02 11:45:00', 'entregado', 27500.00, 15, 2, 33, 2, 24),
+('2025-12-02 13:00:00', 'entregado', 35000.00, 16, 4, 34, 26, 2), 
+('2025-12-02 14:15:00', 'entregado', 39100.00, 17, 1, 35, 28, 29),
+('2025-12-02 15:45:00', 'entregado', 41200.00, 18, 2, 36, 25, 30),
+('2025-12-02 18:15:00', 'entregado', 26800.00, 19, 3, 37, 2, 3),
+('2025-12-02 20:00:00', 'entregado', 35000.00, 20, 4, 38, 26, 24), 
+('2025-12-03 09:45:00', 'entregado', 36400.00, 21, 1, 39, 28, 2),
+('2025-12-03 12:10:00', 'entregado', 42200.00, 22, 2, 40, 25, 29);
 
--- Tabla pedido
+-- tabla ingrediente_pizza 
+INSERT INTO ingrediente_pizza (cantidad_ingrediente, id_pizza, id_ingrediente) VALUES
+(200.0, 1, 1),
+(50.0, 1, 2),
+(2.0, 4, 5),
+(100.0, 2, 2),
+(15.0, 3, 4),
+(20.0, 3, 3),
+(5.0, 4, 5),
+(50.0, 2, 6);
 
-INSERT INTO pedido (fecha, estado, total_pedido, id_cliente, id_pago, id_domicilio, id_repartidor, id_usuario)
-VALUES
-('2025-01-10 18:10','entregado',30000,1,1,1,16,11),
-('2025-01-10 18:20','entregado',28000,2,2,2,17,11),
-('2025-01-10 18:30','entregado',33000,3,3,3,18,12),
-('2025-01-10 18:25','entregado',24000,4,4,4,16,12),
-('2025-01-10 18:35','en preparacion',26000,5,5,5,17,11),
-('2025-01-10 18:40','pendiente',31000,6,6,6,18,14),
-('2025-01-10 18:55','entregado',34000,7,7,7,19,14),
-('2025-01-10 18:45','entregado',22000,8,8,8,20,11),
-('2025-01-10 18:50','entregado',27000,9,9,9,16,13),
-('2025-01-10 18:57','pendiente',30000,10,10,10,17,15),
-
-('2025-01-11 12:25','entregado',26000,1,11,11,18,11),
-('2025-01-11 12:35','entregado',28000,2,12,12,19,12),
-('2025-01-11 12:30','entregado',33000,3,13,13,20,12),
-('2025-01-11 12:40','en preparacion',25000,4,14,14,16,13),
-('2025-01-11 12:45','pendiente',29000,5,15,15,17,13),
-('2025-01-11 12:48','entregado',32000,6,16,16,18,14),
-('2025-01-11 13:00','entregado',31000,7,17,17,19,14),
-('2025-01-11 13:05','entregado',35000,8,18,18,20,15),
-('2025-01-11 13:00','entregado',20000,9,19,19,16,11),
-('2025-01-11 13:05','pendiente',27000,10,20,20,17,11);
-
--- Tabla detalle_pedido
-
+-- tabla detalle_pedido 
 INSERT INTO detalle_pedido (precio_unitario, cantidad, subtotal, id_pedido, id_pizza) VALUES
-(18000,1,18000,1,1),
-(28000,1,28000,2,2),
-(33000,1,33000,3,4),
-(24000,1,24000,4,7),
-(26000,1,26000,5,5),
-(31000,1,31000,6,8),
-(34000,1,34000,7,16),
-(22000,1,22000,8,17),
-(27000,1,27000,9,10),
-(30000,1,30000,10,19),
+(25000.00, 1, 25000.00, 1, 1),
+(32000.00, 1, 32000.00, 2, 3),
+(24000.00, 1, 24000.00, 3, 4),
+(28000.00, 1, 28000.00, 4, 2),
+(32000.00, 1, 32000.00, 5, 3),
+(25000.00, 1, 25000.00, 6, 1),
+(28000.00, 1, 28000.00, 7, 2),
+(32000.00, 1, 32000.00, 8, 3),
+(24000.00, 1, 24000.00, 9, 4),
+(25000.00, 1, 25000.00, 10, 1),
+(32000.00, 1, 32000.00, 11, 3),
+(24000.00, 1, 24000.00, 12, 4),
+(28000.00, 1, 28000.00, 13, 2),
+(32000.00, 1, 32000.00, 14, 3),
+(25000.00, 1, 25000.00, 15, 1),
+(28000.00, 1, 28000.00, 16, 2),
+(32000.00, 1, 32000.00, 17, 3),
+(24000.00, 1, 24000.00, 18, 4),
+(25000.00, 1, 25000.00, 19, 1),
+(28000.00, 1, 28000.00, 20, 2),
+(32000.00, 1, 32000.00, 21, 3),
+(24000.00, 1, 24000.00, 22, 4),
+(25000.00, 1, 25000.00, 23, 1),
+(28000.00, 1, 28000.00, 24, 2),
+(32000.00, 1, 32000.00, 25, 3),
+(24000.00, 1, 24000.00, 26, 4),
+(25000.00, 1, 25000.00, 27, 1),
+(28000.00, 1, 28000.00, 28, 2),
+(32000.00, 1, 32000.00, 29, 3),
+(24000.00, 1, 24000.00, 30, 4),
+(25000.00, 1, 25000.00, 31, 1),
+(28000.00, 1, 28000.00, 32, 2),
+(32000.00, 1, 32000.00, 33, 3),
+(24000.00, 1, 24000.00, 35, 4),
+(25000.00, 1, 25000.00, 36, 1),
+(28000.00, 1, 28000.00, 37, 2),
+(32000.00, 1, 32000.00, 38, 3),
+(24000.00, 1, 24000.00, 39, 4),
+(25000.00, 1, 25000.00, 40, 1),
+(28000.00, 1, 28000.00, 4, 2),
+(24000.00, 1, 24000.00, 6, 4),
+(25000.00, 1, 25000.00, 8, 1),
+(28000.00, 1, 28000.00, 11, 2),
+(24000.00, 1, 24000.00, 14, 4),
+(25000.00, 1, 25000.00, 16, 1),
+(24000.00, 1, 24000.00, 20, 4),
+(32000.00, 1, 32000.00, 22, 3),
+(28000.00, 1, 28000.00, 26, 2),
+(25000.00, 1, 25000.00, 30, 1),
+(28000.00, 1, 28000.00, 35, 2);
 
-(26000,1,26000,11,5),
-(28000,1,28000,12,9),
-(33000,1,33000,13,12),
-(25000,1,25000,14,13),
-(29000,1,29000,15,18),
-(32000,1,32000,16,6),
-(31000,1,31000,17,11),
-(35000,1,35000,18,20),
-(20000,1,20000,19,1),
-(27000,1,27000,20,15);
+-- tabla historial_precio
+INSERT INTO historial_precio (precio_antiguo, precio_nuevo, id_pizza, fecha_cambio) VALUES
+(22000.00, 25000.00, 1, '2025-10-01 10:00:00'),
+(28000.00, 32000.00, 3, '2025-11-05 09:00:00'),
+(25000.00, 28000.00, 2, '2025-11-10 14:00:00');

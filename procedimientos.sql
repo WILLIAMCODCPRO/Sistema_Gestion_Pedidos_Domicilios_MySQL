@@ -90,10 +90,10 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE insertar_ingrediente(IN p_nombre VARCHAR(50), IN p_precio DOUBLE, IN p_stock INT ,IN p_id_unidad_medida INT)
+CREATE PROCEDURE insertar_ingrediente(IN p_nombre VARCHAR(50), IN p_precio DOUBLE, IN p_stock INT , IN P_stock_minimo INT, IN p_id_unidad_medida INT)
 
 BEGIN
-    INSERT INTO ingrediente(nombre, precio, stock, id_unidad_medida) VALUES (p_nombre, p_precio, p_stock, p_id_unidad_medida);
+    INSERT INTO ingrediente(nombre, precio, stock, stock_minimo, id_unidad_medida) VALUES (p_nombre, p_precio, p_stock, P_stock_minimo, p_id_unidad_medida);
 END //
 
 DELIMITER ;

@@ -5,3 +5,7 @@ CREATE VIEW resumen_pedidos_clientes AS SELECT p.nombre AS cliente, COUNT(pe.id)
 -- Vista de desempeño de repartidores (número de entregas, tiempo promedio, zona).
 
 CREATE VIEW desempe_repartidores AS SELECT p.nombre AS repartidor, COUNT(pe.id) AS numero_entregas, AVG(TIMESTAMPDIFF(MINUTE, d.hora_salida_repartidor, d.hora_entrega)) AS tiempo_promedio, z.nombre AS zona FROM persona p INNER JOIN pedido pe ON pe.id_repartidor = p.id  INNER JOIN domicilio d ON d.id = pe.id_domicilio INNER JOIN zona z ON z.id = d.id_zona WHERE pe.estado = 'entregado' GROUP BY p.nombre, z.nombre;
+
+-- Vista de stock de ingredientes por debajo del mínimo permitido.
+
+CREATE VIEW ingredientes_debajo_stock_permitido AS SELECT i.nombre, i.stock, i.stock_minimo FROM ingrediente i  WHERE i.stock < i.stock_minimo;
