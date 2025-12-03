@@ -12,4 +12,8 @@ SELECT p.nombre AS repartidor, COUNT(pe.id) AS cantidad_pedidos_repartidos FROM 
 
 -- Promedio de entrega por zona (AVG y JOIN)
 
-SELECT z.nombre AS zona, COUNT(z.id)  AS promedio_repartido_por_zona FROM zona z INNER JOIN domicilio d ON d.id_zona = z.id GROUP BY z.nombre ORDER BY promedio_repartido_por_zona  DESC;
+SELECT z.nombre AS zona, AVG(TIMESTAMPDIFF(MINUTE, d.hora_salida_repartidor, d.hora_entrega)) AS promedio_entrega  FROM zona z INNER JOIN domicilio d ON d.id_zona = z.id WHERE d.hora_entrega IS NOT NULL GROUP BY z.nombre ORDER BY promedio_entrega  DESC;
+
+-- Clientes que gastaron más de un monto (HAVING).
+
+SELECT p.nombre AS clinete,  SUM(pe.total_pedido) AS total_gastado FROM  persona p INNER JOIN pedido pe ON pe.id_cliente = p.id GROUP BY p.nombre HAVING SUM(pe.total_pedido) > 66000 ORDER BY total_gastado DESC;
