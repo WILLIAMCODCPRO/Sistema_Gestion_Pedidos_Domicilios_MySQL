@@ -17,11 +17,15 @@ END //
 
 DELIMITER ;
 
-INSERT INTO detalle_pedido (precio_unitario, cantidad, subtotal, id_pedido, id_pizza) VALUES
-(15.00, 3, 45.00, 26, 1);
+-- Trigger de auditoría que registre en una tabla historial_precios cada vez que se modifique el precio de una pizza.
 
-INSERT INTO domicilio (distancia, hora_salida_repartidor, hora_entrega, direccion, costo_envio, id_zona) VALUES 
-(2.5, NOW(), NULL, 'Avenida Siempre Viva 742', 3.00, 1);
+DELIMITER //
 
-INSERT INTO pedido ( fecha, estado, total_pedido, id_cliente, id_pago, id_domicilio, id_repartidor, id_usuario) VALUES 
-(NOW(), 'entregado', 0.00, 2, 1, 2, 16, 11);
+CREATE TRIGGER auditoría
+BEFORE UPDATE ON pizza FOR EACH ROW
+BEGIN
+    IF OLD.precio_actual <> NEW.precio_actual THEN INSERT INTO historial_precio (precio_antiguo, precio_nuevo,id_pizza ) VALUES (OLD.precio_actual, NEW.precio_actual, OLD.id); 
+    END IF;
+END //
+
+DELIMITER ;

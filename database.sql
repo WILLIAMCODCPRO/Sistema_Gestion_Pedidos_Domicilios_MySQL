@@ -157,7 +157,10 @@ CREATE TABLE historial_precio (
     id INT NOT NULL AUTO_INCREMENT,
     precio_antiguo DOUBLE NOT NULL,
     precio_nuevo DOUBLE NOT NULL,
-    PRIMARY KEY (id)
+    id_pizza INT NOT NULL, 
+    fecha_cambio DATETIME DEFAULT NOW() NOT NULL, 
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_pizza) REFERENCES pizza(id)
 );
 
 
