@@ -185,3 +185,23 @@ erDiagram
  **`zona`** **tiene** **`repartidor`** (1:N): Una zona tiene asignados varios repartidores y cada repartidor va a estar asociado a una sola zona.
 
  **`zona`** **tiene** **`domicilio`** (1:N): Una zona puede estar en varios domicilios pero cada domicilio esta asociada a una sola zona.
+
+ ## Ejemplos de consultas
+
+### 1. Clientes con Pedidos en un Rango de Fechas
+
+
+```sql
+SELECT p.nombre AS cliente, COUNT(pe.id) AS cantidad_pedidos_reaizados FROM pedido pe INNER JOIN persona p ON pe.id_cliente = p.id WHERE pe.fecha BETWEEN '2025-01-01' AND '2025-01-12' GROUP BY p.nombre ;
+```
+### 2. Pizzas más vendidas
+
+```sql
+SELECT p.nombre, SUM(dp.cantidad) AS cantidad_vendida FROM detalle_pedido dp INNER JOIN pizza p ON p.id = dp.id_pizza GROUP BY p.nombre ORDER BY cantidad_vendida DESC LIMIT 5;
+```
+
+### 3. Pedidos por repartidor
+
+```sql
+SELECT p.nombre AS repartidor, COUNT(pe.id) AS cantidad_pedidos_repartidos FROM pedido pe INNER JOIN persona p ON p.id = pe.id_repartidor GROUP BY p.nombre ORDER BY cantidad_pedidos_repartidos DESC;
+```
