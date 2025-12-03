@@ -17,3 +17,8 @@ SELECT z.nombre AS zona, AVG(TIMESTAMPDIFF(MINUTE, d.hora_salida_repartidor, d.h
 -- Clientes que gastaron más de un monto (HAVING).
 
 SELECT p.nombre AS clinete,  SUM(pe.total_pedido) AS total_gastado FROM  persona p INNER JOIN pedido pe ON pe.id_cliente = p.id GROUP BY p.nombre HAVING SUM(pe.total_pedido) > 66000 ORDER BY total_gastado DESC;
+
+-- Búsqueda por coincidencia parcial de nombre de pizza (LIKE).
+
+SELECT p.nombre FROM pizza p WHERE p.nombre LIKE 'M%';
+
