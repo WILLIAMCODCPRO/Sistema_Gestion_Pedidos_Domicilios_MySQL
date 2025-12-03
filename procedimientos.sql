@@ -133,3 +133,15 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Insertar en tabla repartidor
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_repartidor(IN p_id INT, IN p_estado VARCHAR(50), IN p_id_zona INT)
+
+BEGIN
+    INSERT INTO repartidor(id, estado, id_zona) VALUES (p_id, p_estado, p_id_zona);
+END //
+
+DELIMITER ;
