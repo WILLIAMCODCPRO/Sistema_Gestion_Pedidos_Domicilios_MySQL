@@ -158,3 +158,14 @@ END //
 
 DELIMITER ;
 
+-- Insertar en tabla pedido
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_pedido(IN p_fecha DATETIME, IN p_estado VARCHAR(50), IN p_total_pedido DOUBLE, IN p_id_cliente INT, IN p_id_pago INT, IN p_id_domicilio INT, IN p_id_repartidor INT, IN p_id_usuario INT)
+
+BEGIN
+    INSERT INTO pedido (fecha, estado, total_pedido, id_cliente, id_pago, id_domicilio, id_repartidor,id_usuario) VALUES (p_fecha, p_estado, p_total_pedido, p_id_cliente, p_id_pago, p_id_domicilio, p_id_repartidor, p_id_usuario);
+END //
+
+DELIMITER ;
